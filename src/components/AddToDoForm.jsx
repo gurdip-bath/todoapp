@@ -33,3 +33,5 @@ const AddTodoForm = () => {
 		</form>
 	);
 };
+
+export default AddTodoForm;
