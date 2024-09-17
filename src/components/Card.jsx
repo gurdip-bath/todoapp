@@ -1,8 +1,10 @@
 const Card = ({ children }) => {
   return (
-    <div className="w-1/2 h-1/2 bg-amber-100 shadow-2x1 rounded-lg p-2 items-center flex flex-col space-y-10 justify-between">
+    <div className="w-1/2 h-3/5 bg-blue-100 shadow-2xl rounded-lg p-6 flex flex-col items-center space-y-10 justify-between">
       <div>
-        <h1 className="text-3xl font-semibold underline">My Todo List</h1>
+        <h1 className="text-4xl font-bold text-blue-700 bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text tracking-wide mb-4">
+          My Todo List
+        </h1>
       </div>
       {/* Render the children inside the card */}
       {children}

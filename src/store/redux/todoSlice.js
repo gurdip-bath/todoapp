@@ -10,6 +10,7 @@ export const getTodoAsync = createAsyncThunk('todos/getTodosAsync',
     }
 );
 
+
 export const addTodoAsync = createAsyncThunk('todos/addTodoAsync', async (payload) => {
     const response = await fetch('http://localhost:7000/todos', {
         method: 'POST',

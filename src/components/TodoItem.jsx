@@ -19,15 +19,15 @@ const TodoItem = ({ id, title, completed }) => {
                 <span className='flex items-center'>
                     <input 
                         type='checkbox' 
-                        className='mr-3' 
+                        className='mr-7' 
                         checked={completed}
                         onChange={handleCompleteClick}
                     />
-                    <span className={`text-lg ${completed ? 'line-through text-gray-500' : 'text-gray-800'}`}>
+                    <span className={`text-lg ${completed ? 'flex line-through text-gray-500' : 'text-gray-800'} mr-7`}>
                         {title}
                     </span>
                 </span>
-                <button onClick={handleDeleteClick} className='bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded'>
+                <button onClick={handleDeleteClick} className='bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded flex'>
                     Delete
                 </button>
             </div>

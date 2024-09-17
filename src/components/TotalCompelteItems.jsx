@@ -10,7 +10,7 @@ const TotalCompleteItems = () => {
     }, [todos]);
 
     return (
-        <h4 className='mt-3'>
+        <h4 className='mt-4'>
             Total Complete Items: {completedTodos.length}
         </h4>
     );
