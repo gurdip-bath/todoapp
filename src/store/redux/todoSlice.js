@@ -10,6 +10,20 @@ export const getTodoAsync = createAsyncThunk('todos/getTodosAsync',
     }
 );
 
+export const addTodoAsync = createAsyncThunk ('todos/addTodoAsync', async(payload) => {
+    const response = await fetch ('http://localhost7000/todos', {
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({title: payload.title})
+    })
+    if (response.ok) {
+        const todo = await response.json();
+        return { todo };
+    }
+})
+
 const todoSlice = createSlice({
     name: 'todos',
     initialState: [], // Set initialState to an empty array
@@ -31,10 +45,19 @@ const todoSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(getTodoAsync.fulfilled, (state, action) => {
-            return action.payload; // Directly return the fetched todos array
+    builder
+        .addCase(getTodoAsync.pending, (state, action) => {
+            console.log('fetching data...');
+        })
+        .addCase(getTodoAsync.fulfilled, (state, action) => {
+            console.log('fetched data successfully!');
+            return action.payload.todos;
+        })
+        .addCase(addTodoAsync.fulfilled, (state, action) => {
+            state.push(action.payload.todo);
         });
-    },
+},
+
 });
 
 export const { addTodo, toggleComplete, deleteTodo } = todoSlice.actions;

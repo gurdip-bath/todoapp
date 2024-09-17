@@ -5,11 +5,11 @@ import { getTodoAsync } from '../store/redux/todoSlice';
 
 const TodoList = () => {
     const dispatch = useDispatch();
-    const todos = useSelector((state) => state.todos);
+    const todos = useSelector((state) => state.todos); //states updated, todos updated, line 14 is where component re-renders
 
-    useEffect(() => {
-        dispatch(getTodoAsync());
-    }, [dispatch]);
+    useEffect(() => {               // this will be called when component loads 
+        dispatch(getTodoAsync());   // pass in the action that we want to dispatch (which is imported at the top), fetches to do
+    }, [dispatch]);  //list of things that trigger useEffect func.
 
     return (
         <ul className='list-group'>
