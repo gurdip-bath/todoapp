@@ -14,18 +14,22 @@ const TodoItem = ({ id, title, completed }) => {
     };
 
     return (
-        <li className={`list-group-item ${completed && 'list-group-item-success'}`}>
-            <div className='d-flex justify-content-between'>
-                <span className='d-flex align-items-center'>
+        <li className={`list-group-item ${completed ? 'bg-green-100' : 'bg-white'} p-4 mb-2 rounded-lg shadow-sm`}>
+            <div className='flex justify-between items-center'>
+                <span className='flex items-center'>
                     <input 
                         type='checkbox' 
                         className='mr-3' 
                         checked={completed}
-                        onChange={handleCompleteClick} // Correctly set the onChange handler
+                        onChange={handleCompleteClick}
                     />
-                    {title}
+                    <span className={`text-lg ${completed ? 'line-through text-gray-500' : 'text-gray-800'}`}>
+                        {title}
+                    </span>
                 </span>
-                <button onClick={handleDeleteClick} className='btn btn-danger bg-red-300'>Delete</button>
+                <button onClick={handleDeleteClick} className='bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded'>
+                    Delete
+                </button>
             </div>
         </li>
     );
