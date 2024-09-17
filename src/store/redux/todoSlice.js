@@ -1,12 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const todoSlice = createSlice ({
-    name: "todos",
-    initialState: [
-        {id: 1, title: "todo1", completed: false },
-        {id: 2, title: "todo2", completed: false },
-        {id: 3, title: "todo3", completed: true },
-    ],
+export const getTodoAsync = createAsyncThunk('todos/getTodosAsync', 
+    async () => {
+        const response = await fetch('http://localhost:7000/todos');
+        if (response.ok) {
+            const todos = await response.json();
+            return todos; 
+        }
+    }
+);
+
+const todoSlice = createSlice({
+    name: 'todos',
+    initialState: [], // Set initialState to an empty array
     reducers: {
         addTodo: (state, action) => {
             const newTodo = {
@@ -17,20 +23,20 @@ const todoSlice = createSlice ({
             state.push(newTodo);
         },
         toggleComplete: (state, action) => {
-            const index = state.findIndex((todo)=> todo.id === action.payload.id
-        );
-        state [index].completed = action.payload.completed;
+            const index = state.findIndex((todo) => todo.id === action.payload.id);
+            state[index].completed = action.payload.completed;
         },
         deleteTodo: (state, action) => {
-           return state.filter((todo)=> todo.id !== action.payload.id);
+            return state.filter((todo) => todo.id !== action.payload.id);
         },
     },
-}) ;
+    extraReducers: (builder) => {
+        builder.addCase(getTodoAsync.fulfilled, (state, action) => {
+            return action.payload; // Directly return the fetched todos array
+        });
+    },
+});
 
-export const { 
-    addTodo,
-    toggleComplete, 
-    deleteTodo,
-} = todoSlice.actions;
+export const { addTodo, toggleComplete, deleteTodo } = todoSlice.actions;
 
 export default todoSlice.reducer;
